@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">transfer</string>
+    <string name="transfer">송금</string>
 </resources>
