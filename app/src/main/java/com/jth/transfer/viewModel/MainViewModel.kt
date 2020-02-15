@@ -1,6 +1,8 @@
 package com.jth.transfer.viewModel
 
+import com.jth.transfer.R
 import com.jth.transfer.interf.DataCallBackListener
+import com.jth.transfer.model.WithdrawAccount
 import com.jth.transfer.model.WithdrawAccountResult
 import com.jth.transfer.repo.NotNullMutableLiveData
 import com.jth.transfer.repo.TransferRepository
@@ -9,8 +11,12 @@ import com.jth.transfer.usecase.MainActivityUseCase
 class MainViewModel(private val useCae : MainActivityUseCase, private val repo : TransferRepository) {
     var withdrawAccountResult: NotNullMutableLiveData<WithdrawAccountResult> = NotNullMutableLiveData(WithdrawAccountResult())
 
-    fun startInputMoney() {
-
+    fun startInputMoney(item : WithdrawAccount) {
+        if(item.balance == "0") {
+            useCae.showToast(R.string.amount_limited)
+        } else {
+            useCae.startInputMoney(item)
+        }
     }
 
     fun getWithdrawAccount() {
@@ -27,5 +33,21 @@ class MainViewModel(private val useCae : MainActivityUseCase, private val repo :
                 }
             }
         })
+    }
+
+    fun refreshData() {
+        val result = withdrawAccountResult.value
+
+        val data = withdrawAccountResult.value.list.filter {
+            it.accountNumber == repo.transferSendData.withdrawAccount.accountNumber
+        }
+
+        data.forEachIndexed {
+            i, it ->
+            it.balance = it.balance.toInt().minus(repo.transferSendData.sendMoneyAmount.toInt()).toString()
+            result.list[i].balance = it.balance
+        }
+
+        withdrawAccountResult.value = result
     }
 }

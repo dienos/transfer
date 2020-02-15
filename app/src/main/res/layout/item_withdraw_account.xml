@@ -24,15 +24,15 @@
         android:paddingBottom="10dp">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_gravity="center_vertical"
             app:img_url="@{accountItem.bankLogo}" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="10dp">
 
@@ -41,29 +41,26 @@
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 android:text="@{accountItem.accountNumber}"
-                android:textColor="@android:color/black"
-                />
+                android:textColor="@android:color/black"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="10dp"
-                android:textSize="12sp"
+                android:text="@{accountItem.balance}"
                 android:textColor="@android:color/black"
-                android:text="@{accountItem.balance}" />
+                android:textSize="12sp"/>
 
         </LinearLayout>
 
         <Space
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.startInputMoney()}"
+            android:onClick="@{() -> viewModel.startInputMoney(accountItem)}"
             android:text="@string/transfer"/>
     </LinearLayout>
 </layout>

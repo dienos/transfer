@@ -18,5 +18,4 @@ abstract class BaseBindingActivity<T : ViewDataBinding> : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, getLayoutResId())
     }
-
 }

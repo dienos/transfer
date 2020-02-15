@@ -12,6 +12,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class TransferRepository(val context : Context) {
+
     companion object {
         private var instance: TransferRepository? = null
 
@@ -27,6 +28,7 @@ class TransferRepository(val context : Context) {
     var withdrawAccountResult : WithdrawAccountResult = WithdrawAccountResult()
     var depositAccountResult : DepositAccountResult = DepositAccountResult()
     var depositContactResult : DepositContactResult = DepositContactResult()
+    var transferSendData : TransferSendData = TransferSendData()
 
     fun getWithdrawAccount(listener : DataCallBackListener) {
         val service = ServiceGenerator.createService(TransferApi::class.java)
@@ -88,7 +90,7 @@ class TransferRepository(val context : Context) {
         })
     }
 
-    fun postAccountTransfer(data : ReqTransferAccount) {
+    fun postAccountTransfer(data : ReqTransferAccount, listener : DataCallBackListener) {
         val service = ServiceGenerator.createService(TransferApi::class.java)
         val request = service.postAccountTransfer(data)
         request.enqueue(object : Callback<JsonElement> {
@@ -97,18 +99,18 @@ class TransferRepository(val context : Context) {
                     val result = response.body()
 
                     result?.apply {
-
+                        listener.onSuccess(this)
                     }
                 }
             }
 
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
-                Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+                listener.onFailure(t.message)
             }
         })
     }
 
-    fun postContactTransfer(data : ReqTransferContact) {
+    fun postContactTransfer(data : ReqTransferContact, listener : DataCallBackListener) {
         val service = ServiceGenerator.createService(TransferApi::class.java)
         val request = service.postContactTransfer(data)
         request.enqueue(object : Callback<JsonElement> {
@@ -117,13 +119,13 @@ class TransferRepository(val context : Context) {
                     val result = response.body()
 
                     result?.apply {
-
+                        listener.onSuccess(this)
                     }
                 }
             }
 
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
-                Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+                listener.onFailure(t.message)
             }
         })
     }
