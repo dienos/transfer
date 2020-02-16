@@ -2,11 +2,16 @@
     <string name="app_name">transfer</string>
     <string name="transfer">송금</string>
     <string name="send_msg">%1$s님 (%2$s)께 %3$s원을 송금 합니다.</string>
-    <string name="send">보내기</string>
+    <string name="send">보내기(api)</string>
+    <string name="send_url_scheme">보내기(URL Scheme)</string>
     <string name="input_money">금액 입력</string>
     <string name="confirm">확인</string>
     <string name="send_money_limited">500,000원 까지 송금이 가능합니다.</string>
     <string name="deposit_dis_able_account">입금이 불가능한 계좌 입니다.</string>
     <string name="deposit_dis_able_con">입금이 불가능한 연락처 입니다.</string>
     <string name="amount_limited">잔액이 부족 합니다.</string>
+    <string name="send_complete">%1$s(%2$s)로 송금이 완료 되었습니다.</string>
+    <string name="send_fail">송금을 실패했습니다.</string>
+    <string name="contact">연락처</string>
+    <string name="account">계좌</string>
 </resources>

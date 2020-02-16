@@ -1,9 +1,13 @@
 package com.jth.transfer.usecase
 
+import android.app.Activity
 import android.content.Context
-import com.jth.transfer.R
 import com.jth.transfer.model.SendType
 import com.jth.transfer.model.TransferSendData
+import android.content.Intent
+import android.net.Uri
+import com.jth.transfer.util.Const
+
 
 class SendMoneyActivityUseCase(private val context : Context) : BaseUseCase(context) {
 
@@ -25,6 +29,11 @@ class SendMoneyActivityUseCase(private val context : Context) : BaseUseCase(cont
             }
         }
 
-        return context.getString(R.string.send_msg, name, number, money)
+        return context.getString(com.jth.transfer.R.string.send_msg, name, number, money)
+    }
+
+    fun startTransferUrlScheme(url : String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        (context as Activity).startActivityForResult(intent, Const.ACTIVITY_RESULT_CODE)
     }
 }

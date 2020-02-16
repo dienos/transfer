@@ -25,9 +25,6 @@ class TransferRepository(val context : Context) {
         }
     }
 
-    var withdrawAccountResult : WithdrawAccountResult = WithdrawAccountResult()
-    var depositAccountResult : DepositAccountResult = DepositAccountResult()
-    var depositContactResult : DepositContactResult = DepositContactResult()
     var transferSendData : TransferSendData = TransferSendData()
 
     fun getWithdrawAccount(listener : DataCallBackListener) {
@@ -133,10 +130,7 @@ class TransferRepository(val context : Context) {
     private fun parsingWithdrawAccount(listener : DataCallBackListener,
                                        json : JsonElement) {
         val list : ArrayList<WithdrawAccount> = arrayListOf()
-
-        if(withdrawAccountResult.list.isNotEmpty()) {
-            withdrawAccountResult.list.clear()
-        }
+        val withdrawAccountResult = WithdrawAccountResult()
 
         json.asJsonArray.forEach {
             val data = WithdrawAccount()
@@ -154,10 +148,7 @@ class TransferRepository(val context : Context) {
     private fun parsingDepositAccount(listener : DataCallBackListener,
                                       json : JsonElement) {
         val list : ArrayList<DepositAccount> = arrayListOf()
-
-        if(depositAccountResult.list.isNotEmpty()) {
-            depositAccountResult.list.clear()
-        }
+        val depositAccountResult = DepositAccountResult()
 
         json.asJsonArray.forEach {
             val data = DepositAccount()
@@ -174,10 +165,7 @@ class TransferRepository(val context : Context) {
 
     private fun parsingDepositContact(listener : DataCallBackListener, json : JsonElement) {
         val list : ArrayList<DepositContact> = arrayListOf()
-
-        if(depositContactResult.list.isNotEmpty()) {
-            depositContactResult.list.clear()
-        }
+        val depositContactResult = DepositContactResult()
 
         json.asJsonArray.forEach {
             val data = DepositContact()

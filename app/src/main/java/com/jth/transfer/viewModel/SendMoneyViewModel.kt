@@ -7,11 +7,14 @@ import com.jth.transfer.model.SendType
 import com.jth.transfer.repo.TransferRepository
 import com.jth.transfer.usecase.SendMoneyActivityUseCase
 
-class SendMoneyViewModel (private val useCae : SendMoneyActivityUseCase, private val repo : TransferRepository) {
+class SendMoneyViewModel(
+    private val useCae: SendMoneyActivityUseCase,
+    private val repo: TransferRepository
+) {
     var sendMsg = ""
 
     init {
-        sendMsg =  useCae.getSendMsg(repo.transferSendData)
+        sendMsg = useCae.getSendMsg(repo.transferSendData)
     }
 
     fun startTransfer() {
@@ -20,7 +23,7 @@ class SendMoneyViewModel (private val useCae : SendMoneyActivityUseCase, private
         val type = deposit.type
         val amount = repo.transferSendData.sendMoneyAmount
 
-        when(type) {
+        when (type) {
             SendType.ACCOUNT -> {
                 val data = ReqTransferAccount()
                 data.accountNumber = withdrawAccount.accountNumber
@@ -61,5 +64,55 @@ class SendMoneyViewModel (private val useCae : SendMoneyActivityUseCase, private
                 })
             }
         }
+    }
+
+    fun startTransferUrlScheme() {
+        val deposit = repo.transferSendData.deposit
+        val type = deposit.type
+        val withdrawAccount = repo.transferSendData.withdrawAccount
+        val amount = repo.transferSendData.sendMoneyAmount
+        var url = ""
+
+        when (type) {
+            SendType.ACCOUNT -> {
+                makeUrlSendTypeAccount(
+                    withdrawAccount.accountNumber,
+                    amount,
+                    deposit.accountNumber
+                ).let {
+                    url = it
+                }
+            }
+
+            SendType.CONTACT -> {
+                makeUrlSendTypeContact(
+                    withdrawAccount.accountNumber,
+                    amount,
+                    deposit.phoneNumber
+                ).let {
+                    url = it
+                }
+            }
+        }
+
+        useCae.startTransferUrlScheme(url)
+    }
+
+    private fun makeUrlSendTypeAccount(
+        accountNumber: String,
+        amount: String,
+        receiverAccountNumber: String
+    ): String {
+        return "test://transfer/account?accountNumber=".plus(accountNumber).plus("&amount=")
+            .plus(amount).plus("&receiverAccountNumber=").plus(receiverAccountNumber)
+    }
+
+    private fun makeUrlSendTypeContact(
+        accountNumber: String,
+        amount: String,
+        receiverPhoneNumber: String
+    ): String {
+        return "test://transfer/contact?accountNumber=".plus(accountNumber).plus("&amount=")
+            .plus(amount).plus("&receiverPhoneNumber=").plus(receiverPhoneNumber)
     }
 }

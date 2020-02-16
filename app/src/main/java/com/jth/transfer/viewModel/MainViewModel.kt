@@ -2,6 +2,7 @@ package com.jth.transfer.viewModel
 
 import com.jth.transfer.R
 import com.jth.transfer.interf.DataCallBackListener
+import com.jth.transfer.model.TransferSendData
 import com.jth.transfer.model.WithdrawAccount
 import com.jth.transfer.model.WithdrawAccountResult
 import com.jth.transfer.repo.NotNullMutableLiveData
@@ -49,5 +50,6 @@ class MainViewModel(private val useCae : MainActivityUseCase, private val repo :
         }
 
         withdrawAccountResult.value = result
+        repo.transferSendData = TransferSendData()
     }
 }
