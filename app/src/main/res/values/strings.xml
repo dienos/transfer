@@ -14,4 +14,5 @@
     <string name="send_fail">송금을 실패했습니다.</string>
     <string name="contact">연락처</string>
     <string name="account">계좌</string>
+    <string name="won">%s원</string>
 </resources>
