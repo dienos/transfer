@@ -14,6 +14,7 @@ class SelectReceiverViewModel(private val useCae : SelectReceiverActivityUseCase
     var depositResult: NotNullMutableLiveData<DepositDataResult> = NotNullMutableLiveData(DepositDataResult())
 
     fun getDepositAccount() {
+        useCae.showLoading()
         repo.getDepositAccount(object : DataCallBackListener {
             override fun onSuccess(items: Any) {
                 if(items is DepositAccountResult) {
@@ -21,6 +22,8 @@ class SelectReceiverViewModel(private val useCae : SelectReceiverActivityUseCase
 
                     repo.getDepositContact(object : DataCallBackListener {
                         override fun onSuccess(items: Any) {
+                            useCae.dismissLoading()
+
                             if(items is DepositContactResult) {
                                 depositContact = items
                                 depositResult.value = makeDepositData()
@@ -28,6 +31,8 @@ class SelectReceiverViewModel(private val useCae : SelectReceiverActivityUseCase
                         }
 
                         override fun onFailure(message: String?) {
+                            useCae.dismissLoading()
+
                             message?.apply {
                                 useCae.showToast(this)
                             }
@@ -37,6 +42,8 @@ class SelectReceiverViewModel(private val useCae : SelectReceiverActivityUseCase
             }
 
             override fun onFailure(message: String?) {
+                useCae.dismissLoading()
+
                 message?.apply {
                     useCae.showToast(this)
                 }
@@ -65,6 +72,25 @@ class SelectReceiverViewModel(private val useCae : SelectReceiverActivityUseCase
             deposit.type = SendType.CONTACT
             list.add(deposit)
         }
+
+        list.sortWith(Comparator { data1, data2 ->
+            val name : String
+            val compareName : String
+
+            if(data1.type == SendType.ACCOUNT) {
+                name = data1.accountHolder
+            } else {
+                name = data1.name
+            }
+
+            if(data2.type == SendType.ACCOUNT) {
+                compareName = data2.accountHolder
+            } else {
+                compareName = data2.name
+            }
+
+            name.compareTo(compareName)
+        })
 
         result.list = list
 

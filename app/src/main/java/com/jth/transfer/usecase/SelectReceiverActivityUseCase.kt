@@ -9,10 +9,6 @@ import com.jth.transfer.util.RxBus
 import com.jth.transfer.view.SendMoneyActivity
 
 class SelectReceiverActivityUseCase(private val context: Context) : BaseUseCase(context) {
-    fun getString(id : Int) : String {
-        return context.getString(id)
-    }
-
     fun startSend(data : TransferSendData) {
         RxBus.send(data)
         val intent = Intent(context, SendMoneyActivity::class.java)

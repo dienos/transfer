@@ -21,14 +21,20 @@ class MainViewModel(private val useCae : MainActivityUseCase, private val repo :
     }
 
     fun getWithdrawAccount() {
+        useCae.showLoading()
+
         repo.getWithdrawAccount(object : DataCallBackListener {
             override fun onSuccess(items: Any) {
+                useCae.dismissLoading()
+
                 if(items is WithdrawAccountResult) {
                     withdrawAccountResult.value = items
                 }
             }
 
             override fun onFailure(message: String?) {
+                useCae.dismissLoading()
+
                 message?.apply {
                     useCae.showToast(this)
                 }

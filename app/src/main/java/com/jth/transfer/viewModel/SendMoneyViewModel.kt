@@ -1,5 +1,6 @@
 package com.jth.transfer.viewModel
 
+import com.jth.transfer.R
 import com.jth.transfer.interf.DataCallBackListener
 import com.jth.transfer.model.ReqTransferAccount
 import com.jth.transfer.model.ReqTransferContact
@@ -32,6 +33,14 @@ class SendMoneyViewModel(
 
                 repo.postAccountTransfer(data, object : DataCallBackListener {
                     override fun onSuccess(items: Any) {
+                        useCae.showToast(
+                            useCae.getString(
+                                R.string.send_complete,
+                                data.receiverAccountNumber,
+                                useCae.getString(R.string.account)
+                            )
+                        )
+
                         useCae.setResultOk()
                         useCae.finish()
                     }
@@ -52,6 +61,14 @@ class SendMoneyViewModel(
 
                 repo.postContactTransfer(data, object : DataCallBackListener {
                     override fun onSuccess(items: Any) {
+                        useCae.showToast(
+                            useCae.getString(
+                                R.string.send_complete,
+                                data.receiverPhoneNumber,
+                                useCae.getString(R.string.contact)
+                            )
+                        )
+
                         useCae.setResultOk()
                         useCae.finish()
                     }

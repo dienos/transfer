@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.jth.transfer.viewModel.MainViewModel" />
@@ -14,10 +15,10 @@
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:withdrawAccount="@{viewModel.withdrawAccountResult}"
-            app:viewModel="@{viewModel}"/>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:viewModel="@{viewModel}"
+            app:withdrawAccount="@{viewModel.withdrawAccountResult}" />
     </LinearLayout>
 </layout>
