@@ -22,6 +22,7 @@ class InputMoneyViewModel(private val useCae : InputMoneyActivityUseCase, privat
                 confirmBtnIsEnabled.value = true
             }
         } else {
+            inputMoney.value = ""
             confirmBtnIsEnabled.value = false
         }
     }
