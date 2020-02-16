@@ -1,7 +1,5 @@
 package com.jth.transfer.repo
 
-import android.content.Context
-import android.widget.Toast
 import com.google.gson.JsonElement
 import com.jth.transfer.interf.DataCallBackListener
 import com.jth.transfer.model.*
@@ -11,14 +9,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TransferRepository(val context : Context) {
-
+class TransferRepository {
     companion object {
-        private var instance: TransferRepository? = null
+        private var instance: TransferRepository ?= null
 
-        fun getInstance(context: Context): TransferRepository {
+        fun getInstance(): TransferRepository {
             if(instance == null) {
-                instance = TransferRepository(context)
+                instance = TransferRepository()
             }
 
             return instance!!
@@ -82,7 +79,7 @@ class TransferRepository(val context : Context) {
             }
 
             override fun onFailure(call: Call<JsonElement>, t: Throwable) {
-                Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+                listener.onFailure(t.message)
             }
         })
     }

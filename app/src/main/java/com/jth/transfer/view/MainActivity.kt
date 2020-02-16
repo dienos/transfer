@@ -18,7 +18,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val repo = TransferRepository.getInstance(applicationContext)
+        val repo = TransferRepository.getInstance()
         binding.lifecycleOwner = this
         binding.viewModel = MainViewModel(MainActivityUseCase(this), repo)
         (binding.viewModel as MainViewModel).getWithdrawAccount()

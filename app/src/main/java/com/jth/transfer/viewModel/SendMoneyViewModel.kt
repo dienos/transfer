@@ -93,6 +93,9 @@ class SendMoneyViewModel(
                     url = it
                 }
             }
+            else -> {
+                //do nothing
+            }
         }
 
         useCae.startTransferUrlScheme(url)

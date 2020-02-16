@@ -23,7 +23,7 @@ class InputMoneyActivity : BaseBindingActivity<ActivityInputMoneyBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val repo = TransferRepository.getInstance(this)
+        val repo = TransferRepository.getInstance()
         binding.lifecycleOwner = this
         binding.viewModel = InputMoneyViewModel(InputMoneyActivityUseCase(this), repo)
 

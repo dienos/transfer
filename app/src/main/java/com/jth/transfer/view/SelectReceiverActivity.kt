@@ -23,7 +23,7 @@ class SelectReceiverActivity : BaseBindingActivity<ActivitySelectReceiverBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val repo = TransferRepository.getInstance(applicationContext)
+        val repo = TransferRepository.getInstance()
         binding.lifecycleOwner = this
         binding.viewModel = SelectReceiverViewModel(SelectReceiverActivityUseCase(this), repo)
         (binding.viewModel as SelectReceiverViewModel).getDepositAccount()

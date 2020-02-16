@@ -23,7 +23,7 @@ class SendMoneyActivity : BaseBindingActivity<ActivitySendMoneyBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val repo = TransferRepository.getInstance(applicationContext)
+        val repo = TransferRepository.getInstance()
         binding.lifecycleOwner = this
         binding.viewModel = SendMoneyViewModel(SendMoneyActivityUseCase(this), repo)
 
