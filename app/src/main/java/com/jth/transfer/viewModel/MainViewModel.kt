@@ -39,14 +39,12 @@ class MainViewModel(private val useCae : MainActivityUseCase, private val repo :
     fun refreshData() {
         val result = withdrawAccountResult.value
 
-        val data = withdrawAccountResult.value.list.filter {
-            it.accountNumber == repo.transferSendData.withdrawAccount.accountNumber
-        }
-
-        data.forEachIndexed {
+        withdrawAccountResult.value.list.forEachIndexed {
             i, it ->
-            it.balance = it.balance.toInt().minus(repo.transferSendData.sendMoneyAmount.toInt()).toString()
-            result.list[i].balance = it.balance
+            if(it.accountNumber == repo.transferSendData.withdrawAccount.accountNumber) {
+                it.balance = it.balance.toInt().minus(repo.transferSendData.sendMoneyAmount.toInt()).toString()
+                result.list[i].balance = it.balance
+            }
         }
 
         withdrawAccountResult.value = result
